@@ -8,6 +8,7 @@ import org.testng.annotations.Test;
 import pages.checkoutLastPage.CheckoutLastPage;
 import pages.checkoutPage.CheckoutPage;
 import pages.landingPage.LandingPage;
+import pages.orderCompletedPage.OrderCompletedPage;
 import pages.paketiMioPage.PaketiMioPage;
 
 import java.util.concurrent.TimeUnit;
@@ -110,22 +111,34 @@ public class EndToEnd {
     public void verifyCheckoutPage() {
         CheckoutLastPage checkoutLastPage = new CheckoutLastPage(driver);
         String expectedTitle = "Naročniška pogodba";
-        Assert.assertEquals(checkoutLastPage.getStepTitle(),expectedTitle);
+        Assert.assertEquals(checkoutLastPage.getStepTitle(), expectedTitle);
     }
 
-    @Test(description = "Verify that if checkbox is not ticked the submit button is disabled",priority = 14)
+    @Test(description = "Verify that if checkbox is not ticked the submit button is disabled", priority = 14)
     public void verifySubmitBtnIsDisabled() {
         CheckoutLastPage checkoutLastPage = new CheckoutLastPage(driver);
-        Assert.assertFalse(checkoutLastPage.test());
+        Assert.assertFalse(checkoutLastPage.verifyIfCheckBtnIsSelected());
     }
 
-    @Test(description = "",priority = 15)
-    public void test() throws InterruptedException {
+    @Test(description = "Click on check button and then click on submit button", priority = 15)
+    public void clickOnCheckAndSubmitBtn() throws InterruptedException {
         CheckoutLastPage checkoutLastPage = new CheckoutLastPage(driver);
         checkoutLastPage.clickOnCheckBtn();
         checkoutLastPage.clickOnSubmitBtn();
+    }
 
-        Thread.sleep(500000);
+    @Test(description = "Get the ID from the purchase printed in console", priority = 16)
+    public void getAndPrintTheId() {
+        OrderCompletedPage orderCompletedPage = new OrderCompletedPage(driver);
+        orderCompletedPage.getTheIdFromThePurchase();
+    }
+
+    @Test(description = "Click on To Home button and verify the Title of the new landing page", priority = 17)
+    public void clickOnToHomeBtnAndVerifyNewLandingPage() {
+        OrderCompletedPage orderCompletedPage = new OrderCompletedPage(driver);
+        orderCompletedPage.clickOnToHomeBtn();
+        String expectedTitle = "A1 Slovenija | A1";
+        Assert.assertEquals(orderCompletedPage.getTitle(),expectedTitle);
     }
 
 

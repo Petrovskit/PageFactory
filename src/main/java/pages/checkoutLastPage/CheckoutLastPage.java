@@ -44,7 +44,7 @@ public class CheckoutLastPage {
         return stepTitle.getText();
     }
 
-    public boolean test() {
+    public boolean verifyIfCheckBtnIsSelected() {
         if (checkBtn.isSelected()) {
             return submitBtn.isEnabled();
         } else return false;
